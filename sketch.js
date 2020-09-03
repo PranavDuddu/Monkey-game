@@ -1,37 +1,38 @@
-var car,wall;
-var speed,weight;
+var bananaImage,obstacleImage,bgroup,back,
+score,backImage,player_running,player;
+
+function preload(){
+  player_running=
+loadAnimation("Monkey_01.png","Monkey_02.png","Monkey_03.png","Monkey_04.png","Monkey_05.png","Monkey_06.png","Monkey_07.png","Monkey_08.png","Monkey_09.png","Monkey_10.png");
+  
+  bananaImage=loadImage("banana.png");
+  obstacleImage=loadImage("stone.png");
+  
+}
+
+
 function setup() {
-  createCanvas(1600,400);
-  createSprite(400, 200, 50, 50);
-  speed=random(55,90)
-  weight=random(400,1500)
-  car=createSprite(50,200,50,50);
-  wall=createSprite(1500,200,60,height/2)
-  wall.shapeColor=(80,80,80)
-  car.velocityX=speed;
+  createCanvas(400, 400);
+  back=createSprite(200,350,400,15);
+  back.scale = 1;
+  player=createSprite(40,315,400,25);
+  player.scale = 0.1;
+  player.addAnimation("run",player_running)
+  player.collide(back)
+  bgroup=new Group();
+  
 }
 
 function draw() {
-  if(wall.x-car.x<(car.width+wall.width)/2)
-{
-car.velocityX=0
-var deformation=0.5*weight*speed*speed/22509
-
-if (deformation>180){
-  car.shapeColor=color(255,0,0)
-  wall.shapeColor=color(255,0,0)
-}
-if (deformation>180 && deformation>100){
-  car.shapeColor=color(230,230,0)
-  wall.shapeColor=color(230,230,0)
-}
-if (deformation<180){
-  car.shapeColor=color(0,255,0)
-  wall.shapeColor=color(0,255,0)
-}
-
-}
-
-  background(255,255,255);  
+  background(220);
   drawSprites();
+}
+
+function f(){
+  if(frameCount % 60 === 0) {
+  var fr = createSprite(100,200,40,40);
+  fr.addImage(bananaImage)
+    fr.velocityx=-2
+    bgroup.add(fr);
+  }
 }
